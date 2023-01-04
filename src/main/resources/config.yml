@@ -1,0 +1,31 @@
+settings:
+  config-version: 1
+  debug: true
+  # TODO: 运行时配置
+
+  # 运行时会自动创建已有的服务器的列表
+  server-list: []
+  message:
+    # 向玩家显示上次进入过的服务器
+    show-last-connect: true
+    # 根据玩家名称前缀向玩家显示可用的服务器
+    show-available-connect: true
+    # 显示自动重定向信息
+    show-auto-redirect-message: true
+    # 自动重定向信息显示模式: [title, bar, message]
+    auto-redirect-message-display-type: title
+  match:
+    # 玩家名称前缀分隔符号
+    player-prefix-divider: .
+    # 玩家 UUID 匹配
+    player-uuid-match: 00000000-0000-0000-
+    # 玩家 UUID 匹配模式
+    player-uuid-match-pattern: [ a-zA-Z0-9 ]
+
+  redirect:
+    # /redirect 命令的别名
+    aliases: [ goto ]
+    # 重定向执行前的延时 (秒)
+    redirect-delay-in-seconds: 0.5
+    # 自动重定向前的延时 (秒)
+    auto-redirect-delay-in-seconds: 5
