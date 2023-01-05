@@ -4,6 +4,8 @@ package com.catworldspace.plugin.tom.commands;
 import com.catworldspace.plugin.tom.common.CommandHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 public class RedirectCommand extends Command {
@@ -14,7 +16,7 @@ public class RedirectCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        var message = CommandHelper.CreateMessage(ChatColor.RED + "未知错误，请联系管理员!");
+        BaseComponent[] message = CommandHelper.CreateMessage(ChatColor.RED + "未知错误，请联系管理员!");
 
         //TODO: 将文本移至本地化
         if (!sender.hasPermission(this.getPermission())) {
@@ -27,7 +29,7 @@ public class RedirectCommand extends Command {
                     } else {
                         ProxiedPlayer player = (ProxiedPlayer) sender;
 
-                        var server = CommandHelper.GetServerByName(args[0]);
+                        ServerInfo server = CommandHelper.GetServerByName(args[0]);
                         if (server == null) {
                             message = CommandHelper.CreateMessage(ChatColor.RED + "该服务器不存在!");
                         } else {
@@ -35,7 +37,7 @@ public class RedirectCommand extends Command {
                                 message = CommandHelper.CreateMessage(ChatColor.YELLOW + "你已经在 " + server.getName() + " 服务器内了!");
                             } else {
 
-                                //player.connect(server);
+                                player.connect(server);
                             }
                         }
                     }

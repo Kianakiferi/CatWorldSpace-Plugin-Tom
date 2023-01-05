@@ -1,61 +1,101 @@
 package com.catworldspace.plugin.tom;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.util.List;
 
-import com.catworldspace.plugin.tom.common.CommandHelper;
-import com.catworldspace.plugin.tom.data.DatabaseContext;
+import com.catworldspace.plugin.tom.commands.RedirectCommand;
+import com.catworldspace.plugin.tom.commands.TomCommand;
+import com.catworldspace.plugin.tom.event.PostLoginEventHandler;
+import com.google.common.collect.Lists;
+import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
-import com.catworldspace.plugin.tom.commands.TomCommand;
-import com.catworldspace.plugin.tom.commands.RedirectCommand;
-import com.catworldspace.plugin.tom.event.PostLoginEventHandler;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.logging.Logger;
 public final class Tom extends Plugin {
-    private DatabaseContext context;
+    //private DatabaseContext context;
 
-    private CommandHelper helper;
+    private List<Object> commandsAndEvents;
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+    }
 
     @Override
     public void onEnable() {
-        var logger = getLogger();
-        var manager = getProxy().getPluginManager();
+        Logger logger = getLogger();
+        PluginManager manager = getProxy().getPluginManager();
 
         // TODO: 本地化; 可配置
-        var configName = "config.yml";
+        String configName = "config.yml";
 
-        var config = TryGetConfig(configName);
-
-
-        var commandsAndEvents = List.of(new TomCommand("tom", "cws-tom.*"), new RedirectCommand("redirect", "cws-tom.redirect", "goto"), new PostLoginEventHandler());
-
-        Regist(manager, commandsAndEvents);
+        //var config = TryGetConfig(configName);
 
 
-        logger.info("Hello Waterfall!");
+        commandsAndEvents = Lists.newArrayList(
+                new TomCommand("tom", "cws-tom.*"),
+                new RedirectCommand("redirect", "cws-tom.redirect", "goto"),
+                new PostLoginEventHandler()
+        );
+
+        Register(manager, commandsAndEvents);
+
+
+        logger.info("插件已加载");
+
     }
 
 
     @Override
     public void onDisable() {
-        var logger = getLogger();
-        var manager = getProxy().getPluginManager();
+        Logger logger = getLogger();
+        PluginManager manager = getProxy().getPluginManager();
 
+        UnRegister(manager, commandsAndEvents);
+        logger.info("插件已卸载");
 
-        logger.info("Plugins disabled");
     }
 
 
+    // TODO: 批量注册
+    private void Register(PluginManager manager, List<Object> commandsAndEvents) {
+        for (Object item : commandsAndEvents) {
+            if (item instanceof Command) {
+                Command command = (Command) item;
+                manager.registerCommand(this, command);
+            }
+            if (item instanceof Listener) {
+                Listener listener = (Listener) item;
+                manager.registerListener(this, listener);
+            }
+        }
+    }
+
+    private void UnRegister(PluginManager manager, List<Object> commandsAndEvents) {
+        for (Object item : commandsAndEvents) {
+            if (item instanceof Command) {
+                Command command = (Command) item;
+                manager.unregisterCommand(command);
+            }
+            if (item instanceof Listener) {
+                Listener listener = (Listener) item;
+                manager.unregisterListener(listener);
+            }
+        }
+    }
+
     private Configuration TryGetConfig(String configName) {
+        ConfigurationProvider provider = ConfigurationProvider.getProvider(YamlConfiguration.class);
         try {
-            return ConfigurationProvider.getProvider(YamlConfiguration.class).load(TryGetConfigFile(configName));
+            return provider.load(TryGetConfigFile(configName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,26 +103,9 @@ public final class Tom extends Plugin {
         return null;
     }
 
-
-    // TODO: 批量注册
-    private void Regist(PluginManager manager, List<Object> commandsAndEvents) {
-        for (object item : commandsAndEvents) {
-
-        }
-
-        manager.registerCommand(this, new TomCommand());
-
-        manager.registerListener(this, new PostLoginEventHandler());
-
-    }
-
-    private void UnRegist(PluginManager manager, List<Object> commandsAndEvents) {
-
-    }
-
     private File TryGetConfigFile(String configName) {
-        var folder = TryGetDataFolder();
-        var file = new File(folder, configName);
+        File folder = TryGetDataFolder();
+        File file = new File(folder, configName);
 
         if (!file.exists()) {
             try (InputStream input = getResourceAsStream(configName)) {
@@ -96,7 +119,7 @@ public final class Tom extends Plugin {
     }
 
     private File TryGetDataFolder() {
-        var folder = getDataFolder();
+        File folder = getDataFolder();
         if (!folder.exists()) {
             try {
                 if (!folder.mkdir()) {
@@ -109,6 +132,4 @@ public final class Tom extends Plugin {
 
         return folder;
     }
-
-
 }

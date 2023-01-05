@@ -1,11 +1,25 @@
-language.name=Chinese
-language.region=China
-language.code=zh_CN
-tom.about=
-tom.reload=
-redirect.auto=
-redirect.success=
-redirect.error=
+strings:
+  language:
+    name: Chinese
+    region: China
+    code: zh_CN
+  tom:
+    about:
+    reload:
+
+  common:
+    player:
+    server:
+
+    no-permission:
+    not-exist:
+    already-in-server:
+
+  redirect:
+    success:
+    error:
+    auto:
+
 
 
 

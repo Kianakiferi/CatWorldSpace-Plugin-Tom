@@ -14,11 +14,11 @@ public class TomCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        var message = CommandHelper.CreateMessage(ChatColor.RED + "未知错误，请联系管理员!");
+        net.md_5.bungee.api.chat.BaseComponent[] message = CommandHelper.CreateMessage(ChatColor.RED + "未知错误，请联系管理员!");
 
 
 
-        var text = new TextComponent("Hi " + sender.getName());
+        TextComponent text = new TextComponent("Hi " + sender.getName());
 
         sender.sendMessage(text);
     }

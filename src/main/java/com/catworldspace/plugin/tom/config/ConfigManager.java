@@ -1,11 +1,17 @@
 package com.catworldspace.plugin.tom.config;
 
+import net.md_5.bungee.api.ProxyServer;
+
+import java.io.File;
+
+
 public class ConfigManager {
     private static ConfigManager instance;
-    private Config config;
+    private File configFile;
 
     private ConfigManager() {
-        config = new Config();
+        File folder = ProxyServer.getInstance().getPluginsFolder();
+
     }
 
     public static ConfigManager getInstance() {

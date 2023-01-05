@@ -1,9 +1,8 @@
-name: Tom
+name: CWS-Tom
 version: '${project.version}'
 main: com.catworldspace.plugin.tom.Tom
 prefix: CWS-Tom
-
-authors: [ Kianakiferi ]
+author: Kianakiferi
 description: Wwwwwwwww
 
 commands:
@@ -12,8 +11,6 @@ commands:
     aliases: [ cws ]
   redirect:
     description: 重定向玩家到子服
-  creeper:
-    description: Creeper ?
 
 permissions:
   cws-tom.*:
@@ -25,7 +22,3 @@ permissions:
   cws-tom.redirect.auto:
     description: 根据 UUID 和 Id 自动传送至目标服务器
     default: false
-  creeper:
-    description: Creeper 权限
-    default: true
-

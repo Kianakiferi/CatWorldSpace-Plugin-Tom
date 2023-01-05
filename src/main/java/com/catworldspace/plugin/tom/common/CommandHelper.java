@@ -5,12 +5,11 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class CommandHelper {
-    private static CommandHelper instance = new CommandHelper();
+    private static CommandHelper instance;
 
     public CommandHelper() {
     }
@@ -22,7 +21,7 @@ public class CommandHelper {
     }
 
     public static BaseComponent[] CreateMessage(String text) {
-        return new ComponentBuilder(text).create();
+        return new ComponentBuilder("[&cC&aW&1S&r]: " + text).create();
     }
 
     public static ProxiedPlayer GetPlayerByName(String name) {
@@ -33,7 +32,7 @@ public class CommandHelper {
         return ProxyServer.getInstance().getPlayer(uuid);
     }
 
-    public static boolean IsPlayerInServer(@NotNull ProxiedPlayer player, String serverName) {
+    public static boolean IsPlayerInServer(ProxiedPlayer player, String serverName) {
         return player.getServer().getInfo().getName().equalsIgnoreCase(serverName);
     }
 
