@@ -1,9 +1,8 @@
-package com.catworldspace.plugin.tom;
+package com.catworldspace.plugin.system;
 
 
-import com.catworldspace.plugin.tom.commands.RedirectCommand;
-import com.catworldspace.plugin.tom.commands.TomCommand;
-import com.catworldspace.plugin.tom.event.PostLoginEventHandler;
+import com.catworldspace.plugin.system.commands.TomCommand;
+import com.catworldspace.plugin.system.event.PostLoginEventHandler;
 import com.google.common.collect.Lists;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Listener;
@@ -39,18 +38,14 @@ public final class Tom extends Plugin {
 
         //var config = TryGetConfig(configName);
 
-
         commandsAndEvents = Lists.newArrayList(
-                new TomCommand("tom", "cws-tom.*"),
-                new RedirectCommand("redirect", "cws-tom.redirect", "goto"),
+                new TomCommand("system", "cws-system.*"),
                 new PostLoginEventHandler()
         );
 
         Register(manager, commandsAndEvents);
 
-
         logger.info("插件已加载");
-
     }
 
 
@@ -60,8 +55,8 @@ public final class Tom extends Plugin {
         PluginManager manager = getProxy().getPluginManager();
 
         UnRegister(manager, commandsAndEvents);
-        logger.info("插件已卸载");
 
+        logger.info("插件已卸载");
     }
 
 

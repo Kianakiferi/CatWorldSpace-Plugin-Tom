@@ -1,6 +1,6 @@
-package com.catworldspace.plugin.tom.commands;
+package com.catworldspace.plugin.system.commands;
 
-import com.catworldspace.plugin.tom.common.CommandHelper;
+import com.catworldspace.plugin.system.common.CommandHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;

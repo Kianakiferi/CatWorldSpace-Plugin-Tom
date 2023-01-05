@@ -1,26 +1,12 @@
 strings:
-  language:
-    name: Chinese
-    region: China
-    code: zh_CN
-  tom:
+  language-code: zh_CN
+  plugin:
     about:
     reload:
-
+    prefix: "[CWS - System]"
+    message-prefix: "&b[&6&lCWS &7- &eSystem&b]"
   common:
-    player:
-    server:
-
     no-permission:
     not-exist:
     already-in-server:
-
-  redirect:
-    success:
-    error:
-    auto:
-
-
-
-
 

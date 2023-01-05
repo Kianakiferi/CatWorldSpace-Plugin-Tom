@@ -1,4 +1,4 @@
-package com.catworldspace.plugin.tom.config;
+package com.catworldspace.plugin.system.config;
 
 import net.md_5.bungee.api.ProxyServer;
 
