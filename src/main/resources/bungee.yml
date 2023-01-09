@@ -1,6 +1,6 @@
 name: CWS-System
 version: '${project.version}'
-main: com.catworldspace.plugin.system.Tom
+main: com.catworldspace.plugin.system.System
 prefix: CWS - System
 author: Kianakiferi
 description: Wwwwwwwww

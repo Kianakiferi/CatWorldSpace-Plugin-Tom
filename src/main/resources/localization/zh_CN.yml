@@ -1,12 +1,13 @@
 strings:
-  language-code: zh_CN
+  language: zh_CN
   plugin:
-    about:
-    reload:
-    prefix: "[CWS - System]"
+    about: CatSpaceWorld 服务器的插件
+    reload: 已重新载入配置文件
+    console-prefix: "[CWS - System]"
     message-prefix: "&b[&6&lCWS &7- &eSystem&b]"
   common:
-    no-permission:
-    not-exist:
+    no-permission: 对不起,
+    not-exist: 未找到该玩家
+  redirect:
     already-in-server:
 
