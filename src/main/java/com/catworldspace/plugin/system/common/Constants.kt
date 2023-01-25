@@ -1,14 +1,24 @@
 package com.catworldspace.plugin.system.common
 
 object Constants {
+    const val IS_DEBUG = true
+    const val currentConfigVersion = "2023-0124"
+
     const val languageFolderName = "localization"
     const val updatesFolderName = "updates"
-
     const val configName = "config.yml"
-    const val currentConfigVersion = "2023-0109"
-    const val configVersionPath ="settings.config-version"
 
-    const val languagePath = "settings.language"
+    // Config Path
+    const val configVersionPath ="config-version"
+    const val debugPath = "debug"
+    const val languagePath = "language"
 
-    val isDebug = true
+    private const val rootPath = "settings"
+    const val serverListPath = "$rootPath.server-list"
+
+    const val commandSystemPath = "$rootPath.system"
+
+    const val loginPrefixUUIDMatchPath = "$rootPath.prefix-uuid-match"
+    const val loginPrefixUUIDMatch_MatchUUIDPath = "$loginPrefixUUIDMatchPath.match-uuid"
+
 }

@@ -20,10 +20,6 @@ object CommandHelper {
     }
 
     @JvmStatic
-    val consolePrefix: String = "[CWS - System]:"
-
-
-    @JvmStatic
     fun getPlayerByName(name: String?): ProxiedPlayer? {
         return ProxyServer.getInstance().getPlayer(name)
     }
