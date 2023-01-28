@@ -1,11 +1,10 @@
 package com.catworldspace.plugin.system.events
 
-import com.catworldspace.plugin.system.common.CommandHelper.createMessage
-import com.catworldspace.plugin.system.common.CommandHelper.getServerByName
-
+import com.catworldspace.plugin.system.common.CommandHelper.createPrefixedMessage
 import com.catworldspace.plugin.system.models.redirect.RedirectResultEnum
 import com.catworldspace.plugin.system.common.RedirectHelper.tryLoginIn
 import com.catworldspace.plugin.system.common.Variables.Strings.ConsolePrefix
+import com.catworldspace.plugin.system.common.connection.ServerHelper.getServerByName
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.event.PostLoginEvent
@@ -25,8 +24,8 @@ class PostLoginEventHandler() : Listener {
         val logger = ProxyServer.getInstance().logger
 
         val player = event.player
-
         val result = tryLoginIn(player)
+
         when (result.resultEnum) {
             RedirectResultEnum.PLAYER_NO_PREFIX -> logger.info(
                 "$ConsolePrefix 玩家 ${player.name} 未被分配前缀"
@@ -57,7 +56,7 @@ class PostLoginEventHandler() : Listener {
         if (isDebug) {
             player.connect(getServerByName(serverName1))
         }
-        player.disconnect(*createMessage("${ChatColor.RED} 未找到匹配的服务器, 请联系管理员"))
+        player.disconnect(*createPrefixedMessage("${ChatColor.RED} 未找到匹配的服务器, 请联系管理员"))
         logger.info(
             "$ConsolePrefix 已拒绝玩家 ${player.name} 的连接请求"
         )

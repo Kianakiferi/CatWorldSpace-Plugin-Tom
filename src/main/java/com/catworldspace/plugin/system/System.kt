@@ -2,11 +2,12 @@ package com.catworldspace.plugin.system
 
 import com.catworldspace.plugin.system.commands.SystemCommand
 import com.catworldspace.plugin.system.common.Constants
-import com.catworldspace.plugin.system.configs.ConfigHelper.getOrCreateFolder
-import com.catworldspace.plugin.system.configs.ConfigHelper.getConfiguration
-import com.catworldspace.plugin.system.configs.ConfigHelper.getLanguageCode
-import com.catworldspace.plugin.system.configs.ConfigHelper.getLanguageStrings
+import com.catworldspace.plugin.system.common.configs.ConfigurationHelper.getOrCreateFolder
+import com.catworldspace.plugin.system.common.configs.ConfigurationHelper.getConfiguration
+import com.catworldspace.plugin.system.common.configs.ConfigurationHelper.getLanguageCode
+import com.catworldspace.plugin.system.common.configs.ConfigurationHelper.getLanguageStrings
 import com.catworldspace.plugin.system.common.Variables
+import com.catworldspace.plugin.system.common.configs.ConfigurationHelper.getServerList
 
 import com.catworldspace.plugin.system.events.PostLoginEventHandler
 import net.md_5.bungee.api.plugin.Command
@@ -64,11 +65,11 @@ class System : Plugin() {
     private fun setVariables(config: Configuration, strings: Any) {
         Variables.IsDebugEnabled = config.getBoolean(Constants.debugPath)
 
-        Variables.PrefixUUIDMatch.IsEnabled = config.getBoolean("${Constants.loginPrefixUUIDMatchPath}.enabled")
-        Variables.PrefixUUIDMatch.IsMatchUUIDEnabled = config.getBoolean("${Constants.loginPrefixUUIDMatch_MatchUUIDPath}.enabled")
-        Variables.PrefixUUIDMatch.PrefixDivider = config.getString("${Constants.loginPrefixUUIDMatchPath}.prefix-divider")
+        Variables.ServerList  = getServerList((config.getList("${Constants.serverListPath}")).toList())
 
-        Variables.PrefixUUIDMatch.redirectList = config.getList("${Constants.loginPrefixUUIDMatchPath}.redirect-server-list").toList()
+        Variables.PrefixUUIDMatch.IsEnabled = config.getBoolean("${Constants.loginPrefixUUIDMatchPath}.enabled")
+        Variables.PrefixUUIDMatch.PrefixDivider = config.getString("${Constants.loginPrefixUUIDMatchPath}.prefix-divider")
+        Variables.PrefixUUIDMatch.IsMatchUUIDEnabled = config.getBoolean("${Constants.loginPrefixUUIDMatch_MatchUUIDPath}.enabled")
 
 
     }

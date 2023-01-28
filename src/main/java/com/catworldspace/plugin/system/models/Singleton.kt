@@ -1,6 +1,6 @@
 package com.catworldspace.plugin.system.models
 
-abstract class SingletonBase<out T>(creator: () -> T) {
+abstract class Singleton<out T>(creator: () -> T) {
     @Volatile
     private var instance: T? = null
 

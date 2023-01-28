@@ -12,11 +12,14 @@ settings:
   # 服务器的列表及其前缀
   server-list:
     # - example-server:
-    #     permission: redirect.example
+    #     permission: redirect.example-server
+    #     redirect-prefix: Example
     - LoginServer:
         permission:
+        redirect-prefix: default
     - LoginServer_be:
         permission:
+        redirect-prefix: BxE
   # 插件主命令设置
   system:
     name: system
@@ -33,16 +36,9 @@ settings:
       # 玩家 UUID 匹配
       uuid-match-list:
         # - Example: $$$$$$$$-$$$$-A$$$-B$$$-$$$$$$$$$$$$
-        - bxe-player: 00000000-0000-0000-$$$$-$$$$$$$$$$$$
+        - BxE: 00000000-0000-0000-$$$$-$$$$$$$$$$$$
       # 玩家 UUID 匹配模式
       match-pattern: "[a-zA-Z0-9]"
-    redirect-server-list:
-      -
-        prefix: BxE
-        server : LoginServer_be
-      -
-        prefix:
-        server: LoginServer
   # 大厅命令设置
   hub:
     name: hub

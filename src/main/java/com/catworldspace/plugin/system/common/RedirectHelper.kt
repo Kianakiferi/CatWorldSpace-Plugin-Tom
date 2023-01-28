@@ -1,7 +1,7 @@
 package com.catworldspace.plugin.system.common
 
+import com.catworldspace.plugin.system.common.connection.ServerHelper.getServerByName
 import com.catworldspace.plugin.system.models.redirect.RedirectResult
-import com.catworldspace.plugin.system.common.CommandHelper.getServerByName
 import com.catworldspace.plugin.system.models.redirect.RedirectResultEnum
 import net.md_5.bungee.api.connection.ProxiedPlayer
 

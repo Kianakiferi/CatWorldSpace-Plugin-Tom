@@ -1,3 +1,6 @@
+# 配置文件版本: 年-月日
+config-version: 2023-0117
+
 strings:
   language: zh_CN
   plugin:
