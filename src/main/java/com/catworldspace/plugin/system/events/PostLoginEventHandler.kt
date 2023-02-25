@@ -2,7 +2,7 @@ package com.catworldspace.plugin.system.events
 
 import com.catworldspace.plugin.system.common.CommandHelper.createPrefixedMessage
 import com.catworldspace.plugin.system.models.redirect.RedirectResultEnum
-import com.catworldspace.plugin.system.common.RedirectHelper.tryLoginIn
+import com.catworldspace.plugin.system.common.RedirectManager.tryLoginIn
 import com.catworldspace.plugin.system.common.Variables.Strings.ConsolePrefix
 import com.catworldspace.plugin.system.common.connection.ServerHelper.getServerByName
 import net.md_5.bungee.api.ChatColor
@@ -11,7 +11,7 @@ import net.md_5.bungee.api.event.PostLoginEvent
 import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 
-class PostLoginEventHandler() : Listener {
+class PostLoginEventHandler : Listener {
     // TODO: 读取自 config.yml 的值
     private val isDebug = true
 

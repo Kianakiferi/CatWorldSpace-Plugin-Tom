@@ -5,7 +5,7 @@ import com.catworldspace.plugin.system.models.redirect.RedirectResult
 import com.catworldspace.plugin.system.models.redirect.RedirectResultEnum
 import net.md_5.bungee.api.connection.ProxiedPlayer
 
-object RedirectHelper {
+object RedirectManager {
     private const val namePrefixDivider = "."
     private const val uuidPrefix = "00000000-0000-0000-"
 

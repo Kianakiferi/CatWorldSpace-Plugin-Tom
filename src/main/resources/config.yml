@@ -1,7 +1,7 @@
 # CatWorldSpace-System 插件的配置文件
 
 # 配置文件版本: 年-月日
-config-version: 2023-0117
+config-version: 2023-0225
 # 调试模式
 debug: true
 # 显示语言
@@ -9,6 +9,11 @@ language: zh_CN
 
 # 功能设置
 settings:
+  # 插件主命令设置
+  system:
+    command-name: system
+    command-permission: cws-system.*
+    command-alias: [ cws ]
   # 服务器的列表及其前缀
   server-list:
     # - example-server:
@@ -20,18 +25,13 @@ settings:
     - LoginServer_be:
         permission:
         redirect-prefix: BxE
-  # 插件主命令设置
-  system:
-    name: system
-    permission: cws-system.*
-    alias: [ cws ]
   # 匹配设置
   prefix-uuid-match:
     enabled: true
     # 玩家名称前缀分隔符号
-    prefix-divider: "."
+    prefix-separator: "."
     # 玩家 UUID 匹配
-    match-uuid:
+    uuid-match:
       enabled: true
       # 玩家 UUID 匹配
       uuid-match-list:
@@ -41,10 +41,10 @@ settings:
       match-pattern: "[a-zA-Z0-9]"
   # 大厅命令设置
   hub:
-    name: hub
     enabled: true
-    permission: hub
-    alias: [lobby]
+    command-name: hub
+    command-permission: hub
+    command-alias: [lobby]
 
   # TODO:
   # 重定向设置

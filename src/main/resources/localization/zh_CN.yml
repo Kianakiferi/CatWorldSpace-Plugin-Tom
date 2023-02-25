@@ -1,13 +1,16 @@
 # 配置文件版本: 年-月日
-config-version: 2023-0117
+config-version: 2023-0225
+language-code: zh_CN
 
 strings:
-  language: zh_CN
   plugin:
-    about: CatSpaceWorld 服务器的插件
-    reload: 已重新载入配置文件
     console-prefix: "[CWS - System]"
     message-prefix: "&b[&6&lCWS &7- &eSystem&b]"
+    plugin-loaded: 插件已加载
+    plugin-unloaded: 插件已卸载
+  system:
+    about: CatSpaceWorld 服务器的插件
+    reloaded: 已重新载入配置文件
   common:
     no-permission: 对不起,
     not-exist: 未找到该玩家

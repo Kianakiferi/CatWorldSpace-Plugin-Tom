@@ -1,3 +1,3 @@
-package com.catworldspace.plugin.system.models.exception
+package com.catworldspace.plugin.system.exception
 
 class IncorrectConfigurationException(message: String?) : Throwable(message)
