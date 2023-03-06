@@ -1,9 +1,8 @@
 package com.catworldspace.plugin.system.common.configs
 
 import com.catworldspace.plugin.system.commands.SystemCommand
-import com.catworldspace.plugin.system.common.Constants
-import com.catworldspace.plugin.system.common.Strings
-import com.catworldspace.plugin.system.common.Variables
+import com.catworldspace.plugin.system.common.program.Constants
+import com.catworldspace.plugin.system.common.program.Strings
 import com.catworldspace.plugin.system.common.connection.ServerHelper
 import com.catworldspace.plugin.system.events.PostLoginEventHandler
 import com.catworldspace.plugin.system.exception.IncorrectConfigurationException
@@ -16,7 +15,7 @@ object ConfigHelper {
     fun getLanguageCode(config: Configuration): String {
         val language = config.getString(Constants.ConfigPaths.language)
         if (language.isNullOrEmpty()) {
-            throw ResourceNotFoundException("${Strings.ConsolePrefix} ${Strings.LanguageResourceNotFoundExceptionMessage}")
+            throw ResourceNotFoundException("${Strings.consolePrefix} ${Strings.languageResourceNotFoundExceptionMessage}")
         }
         return language
     }
@@ -36,7 +35,7 @@ object ConfigHelper {
 
                     result.add(CWSServer(key, permission, redirectPrefix, ServerHelper.getServerByName(key)))
                 } else {
-                    throw IncorrectConfigurationException("${Strings.ConsolePrefix} ${Strings.IncorrectConfigurationExceptionMessage} at $key")
+                    throw IncorrectConfigurationException("${Strings.consolePrefix} ${Strings.incorrectConfigurationExceptionMessage} at $key")
                 }
             }
         }
@@ -44,12 +43,13 @@ object ConfigHelper {
     }
 
     @JvmStatic
-    fun getCommandAndEvents(config: Configuration, strings: Any):List<Any> {
+    fun getCommandAndEvents(config: Configuration):List<Any> {
         val result = mutableListOf<Any>()
 
-        val systemCommandName = config.getString("${Constants.ConfigPaths.System.systemCommandName}")
-        val systemCommandPermission = config.getString("${Constants.ConfigPaths.System.systemCommandPermission}")
-        val systemCommandAliasList = config.getStringList("${Constants.ConfigPaths.System.systemCommandAlias}")
+        val systemCommandName = config.getString(Constants.ConfigPaths.System.systemCommandName)
+        val systemCommandPermission = config.getString(Constants.ConfigPaths.System.systemCommandPermission)
+        val systemCommandAliasList = config.getStringList(Constants.ConfigPaths.System.systemCommandAlias)
+
         result.add(
             SystemCommand(
                 systemCommandName, systemCommandPermission, *systemCommandAliasList.toTypedArray()

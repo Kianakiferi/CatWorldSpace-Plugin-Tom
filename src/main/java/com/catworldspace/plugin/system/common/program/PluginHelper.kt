@@ -1,6 +1,5 @@
-package com.catworldspace.plugin.system.common
+package com.catworldspace.plugin.system.common.program
 
-import com.catworldspace.plugin.system.common.Strings.ConsolePrefix
 import com.catworldspace.plugin.system.common.configs.ConfigHelper
 import com.catworldspace.plugin.system.exception.OutdatedConfigurationException
 import com.catworldspace.plugin.system.exception.ResourceNotFoundException
@@ -14,7 +13,32 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 object PluginHelper {
-    private val provider = ConfigurationProvider.getProvider(YamlConfiguration::class.java)
+    @JvmStatic
+    fun setVariables(config: Configuration) {
+        Variables.isDebug = config.getBoolean(Constants.ConfigPaths.debug)
+
+        Variables.serverList =
+            ConfigHelper.getServerList((config.getList(Constants.ConfigPaths.serverList)).toList())
+
+        Variables.PrefixUUIDMatch.isEnabled = config.getBoolean(Constants.ConfigPaths.PrefixUUIDMatch.enabled)
+        Variables.PrefixUUIDMatch.prefixSeparator = config.getString(Constants.ConfigPaths.PrefixUUIDMatch.prefixSeparator)
+
+        Variables.PrefixUUIDMatch.UUIDMatch.isEnabled = config.getBoolean(Constants.ConfigPaths.PrefixUUIDMatch.UUIDMatch.enabled)
+        Variables.PrefixUUIDMatch.UUIDMatch.matchPattern = config.getString(Constants.ConfigPaths.PrefixUUIDMatch.UUIDMatch.matchPattern)
+
+
+    }
+
+    @JvmStatic
+    fun setStrings(config: Configuration) {
+        Strings.consolePrefix = config.getString(Constants.StringsPaths.Plugin.consolePrefix)
+        Strings.messagePrefix = config.getString(Constants.StringsPaths.Plugin.messagePrefix)
+        Strings.pluginLoadedMessage = config.getString(Constants.StringsPaths.Plugin.pluginLoaded)
+        Strings.pluginUnloadedMessage = config.getString(Constants.StringsPaths.Plugin.pluginUnloaded)
+
+        Strings.SystemCommand.about = config.getString(Constants.StringsPaths.System.about)
+        Strings.SystemCommand.reloaded = config.getString(Constants.StringsPaths.System.reloaded)
+    }
 
     @JvmStatic
     fun getConfiguration(pluginFolder: File): Configuration {
@@ -45,7 +69,7 @@ object PluginHelper {
         if (!file.exists()) {
             try {
                 if (!file.mkdir()) {
-                    throw IOException("$ConsolePrefix ${Strings.IOExceptionCanNotCreateFolderMessage}")
+                    throw IOException("${Strings.consolePrefix} ${Strings.canNotCreateFolderExceptionMessage}")
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -54,19 +78,20 @@ object PluginHelper {
         return file
     }
 
+
     @JvmStatic
-    fun loadConfig(provider: ConfigurationProvider, file: File): Configuration {
+    private fun loadConfig(provider: ConfigurationProvider, file: File): Configuration {
         try {
             return provider.load(file)
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
-        throw IOException("$ConsolePrefix ${Strings.IOExceptionCanNotReadConfigFileMessage}")
+        throw IOException("${Strings.consolePrefix} ${Strings.canNotReadConfigFileExceptionMessage}")
     }
 
     @JvmStatic
-    fun isValidVersion(version: String): Boolean {
+    private fun isValidVersion(version: String): Boolean {
         // TODO: 更好的版本判断
         return version == Constants.currentConfigVersion
     }
@@ -78,35 +103,27 @@ object PluginHelper {
             copyFileFromResourcesByName(fileName, file, true)
         }
 
+        val provider = ConfigurationProvider.getProvider(YamlConfiguration::class.java)
+
         val result :Configuration = loadConfig(provider, file)
         val configVersion = result.getString(Constants.ConfigPaths.configVersion)
 
         if (isValidVersion(configVersion)) {
             return result
         } else {
-           throw OutdatedConfigurationException("$ConsolePrefix ${Strings.OutdatedConfigurationExceptionMessage}: $configVersion")
+            backupAndCopyConfig(fileName, file,true)
+
+
+            throw OutdatedConfigurationException("${Strings.consolePrefix} ${Strings.outdatedConfigurationExceptionMessage}: $configVersion")
         }
     }
 
-    @JvmStatic
-    fun setVariables(config: Configuration) {
-        Variables.isDebug = config.getBoolean(Constants.ConfigPaths.debug)
+    private fun backupAndCopyConfig(fileName: String, file: File, replace: Boolean = false) {
+        var oldFile :File = file
 
-        Variables.serverList  =
-            ConfigHelper.getServerList((config.getList("${Constants.ConfigPaths.serverList}")).toList())
 
-        Variables.PrefixUUIDMatch.isEnabled = config.getBoolean("${Constants.ConfigPaths.PrefixUUIDMatch.enabled}")
-        Variables.PrefixUUIDMatch.prefixSeparator = config.getString("${Constants.ConfigPaths.PrefixUUIDMatch.prefixSeparator}")
-        Variables.PrefixUUIDMatch.UUIDMatch.isEnabled = config.getBoolean("${Constants.ConfigPaths.PrefixUUIDMatch.UUIDMatch.enabled}")
 
     }
-
-    @JvmStatic
-    fun setStrings(config: Configuration) {
-        Strings.ConsolePrefix = config.getString("${Constants.StringsPath.}")
-
-    }
-
 
 
     @JvmStatic
@@ -123,7 +140,7 @@ object PluginHelper {
     @JvmStatic
     private fun getResourceAsStream(fileName: String): InputStream {
         return javaClass.classLoader.getResourceAsStream(fileName)
-            ?: throw ResourceNotFoundException("$ConsolePrefix ${Strings.ResourceNotFoundExceptionMessage}: $fileName")
+            ?: throw ResourceNotFoundException("${Strings.consolePrefix} ${Strings.resourceNotFoundExceptionMessage}: $fileName")
     }
 
     @JvmStatic
@@ -134,6 +151,4 @@ object PluginHelper {
             Files.copy(input, target.toPath())
         }
     }
-
-
 }

@@ -1,8 +1,8 @@
 package com.catworldspace.plugin.system
 
-import com.catworldspace.plugin.system.common.Strings
+import com.catworldspace.plugin.system.common.program.Strings
 import com.catworldspace.plugin.system.common.configs.ConfigHelper
-import com.catworldspace.plugin.system.common.PluginHelper
+import com.catworldspace.plugin.system.common.program.PluginHelper
 
 import net.md_5.bungee.api.plugin.Command
 import net.md_5.bungee.api.plugin.Listener
@@ -23,16 +23,16 @@ class System : Plugin() {
         PluginHelper.setVariables(config)
         PluginHelper.setStrings(strings)
 
-        commandsAndEvents = ConfigHelper.getCommandAndEvents(config, strings)
+        commandsAndEvents = ConfigHelper.getCommandAndEvents(config)
         register(proxy.pluginManager, commandsAndEvents)
 
-        logger.info(Strings.PluginLoadedMessage)
+        logger.info(Strings.pluginLoadedMessage)
     }
     override fun onDisable() {
         val logger = logger
 
         unRegister(proxy.pluginManager, commandsAndEvents)
-        logger.info(Strings.PluginUnloadedMessage)
+        logger.info(Strings.pluginUnloadedMessage)
     }
 
     private fun register(manager: PluginManager, commandsAndEvents: Collection<Any>?) {

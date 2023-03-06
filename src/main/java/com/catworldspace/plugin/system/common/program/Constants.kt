@@ -1,4 +1,4 @@
-package com.catworldspace.plugin.system.common
+package com.catworldspace.plugin.system.common.program
 
 object Constants {
     const val IS_DEBUG = false
@@ -59,15 +59,20 @@ object Constants {
         const val languageCode = "language-code"
 
         private const val rootPath = "strings"
-        object Plugin
+        object Plugin {
+            private const val pluginPath = "$rootPath.plugin"
+            const val consolePrefix = "$pluginPath.console-prefix"
+            const val messagePrefix = "$pluginPath.message-prefix"
+            const val pluginLoaded = "$pluginPath.plugin-loaded"
+            const val pluginUnloaded = "$pluginPath.plugin-unloaded"
+        }
 
         object System {
             private const val systemPath = "$rootPath.system"
             const val about = "$systemPath.about"
-            const val reload = "$systemPath.reload"
-            const val consolePrefix = "$systemPath.console-prefix"
-            const val messagePrefix = "$systemPath.message-prefix"
+            const val reloaded = "$systemPath.reload"
         }
+
         object Common {
             private const val commonPath = "$rootPath.common"
             const val noPermission = "$commonPath.no-permission"

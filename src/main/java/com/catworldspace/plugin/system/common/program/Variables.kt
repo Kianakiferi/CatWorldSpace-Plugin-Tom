@@ -1,4 +1,4 @@
-package com.catworldspace.plugin.system.common
+package com.catworldspace.plugin.system.common.program
 
 import com.catworldspace.plugin.system.models.CWSServer
 
@@ -10,15 +10,16 @@ object Variables {
     object PrefixUUIDMatch {
         var isEnabled = false
         var prefixSeparator = "."
+
         object UUIDMatch {
             var isEnabled = false
 
             var matchPattern = "[a-zA-Z0-9]"
         }
+    }
 
-        object Hub {
-            var isEnabled = false
-        }
+    object Hub {
+        var isEnabled = false
     }
 }
 

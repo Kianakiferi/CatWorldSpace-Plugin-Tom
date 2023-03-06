@@ -1,4 +1,3 @@
 package com.catworldspace.plugin.system.exception
 
-class OutdatedConfigurationException(message: String) : Throwable(message) {
-}
+class OutdatedConfigurationException(message: String) : Throwable(message)
